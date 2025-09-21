@@ -5,6 +5,9 @@
 
 #include "costmap_core.hpp"
 
+#include "sensor_msgs/msg/laser_scan.hpp"
+#include "nav_msgs/msg/occupancy_grid.hpp"
+
 class CostmapNode : public rclcpp::Node {
   public:
     CostmapNode();
@@ -14,9 +17,11 @@ class CostmapNode : public rclcpp::Node {
     
 
     //ROS Subscribers and Publishers
-    void laserCallback(const sensor_msgs::msg::LaserScan::SharedPtr scan);
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr laser_sub_;
     rclcpp::Publisher<nav_msgs::msg::OccupancyGrid>::SharedPtr occupancy_grid_pub_;
+
+    // Callback function for laser scan messages
+    void laserCallback(const sensor_msgs::msg::LaserScan::SharedPtr scan);
 };
 
 #endif 
